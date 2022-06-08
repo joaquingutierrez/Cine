@@ -1,0 +1,21 @@
+body {
+    background-color: rgba(255, 57, 57, 0.877);
+}
+
+.peliculas {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.card {
+    height: 500px;
+    width: 300px;
+    background-color: antiquewhite;
+    border: 2px solid black;
+    text-align: center;
+    padding-top: 20px
+}
+
+.card img {
+    height: 350px;
+}
