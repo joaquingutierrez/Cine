@@ -15,6 +15,22 @@ let ocupadas3 = 0;
 let pelicula;
 let entradas;
 
+
+//Funciones
+const sacarEntradas = (ocupadas, sala, numeroDeSala) => {
+    entradas = parseInt(prompt('¿Cuántas entradas desea sacar?'));
+    ocupadas = ocupadas + entradas;
+    if (ocupadas <= sala) {
+        alert('Su costo es de : ' + entradas * precio + '$');
+        console.info('La sala', numeroDeSala, 'tiene',ocupadas,'asientos ocupados');
+        return ocupadas;
+    }
+    ocupadas = ocupadas - entradas;
+    alert('Lo sentimos, no hay espacio suficiente, quedan ' + (sala - ocupadas) + ' lugares');
+    console.info('La sala', numeroDeSala, 'tiene',ocupadas,'asientos ocupados');
+    return ocupadas;
+}
+
 //Programa
 console.log('Las peliculas disponibles son: Sonic 2, Jurassic World y Dr. Strange')
 do {
@@ -25,40 +41,13 @@ do {
     }
 
     if ((pelicula === 'Sonic 2') || (pelicula === 'sonic 2')) {
-        entradas = parseInt(prompt('¿Cuántas entradas desea sacar?'));
-        ocupadas1 = ocupadas1 + entradas;
-        if (ocupadas1 <= sala1) {
-            alert('Su costo es de : ' + entradas * precio + '$');
-            console.info('La sala 1 tiene',ocupadas1,'asientos ocupados');
-        } else {
-            ocupadas1 = ocupadas1 - entradas;
-            alert('Lo sentimos, no hay espacio suficiente, quedan ' + (sala1 - ocupadas1) + ' lugares');
-            console.info('La sala 1 tiene',ocupadas1,'asientos ocupados');
-        }
+        ocupadas1 = sacarEntradas(ocupadas1, sala1, 1);
 
     } else if ((pelicula === 'Jurassic World') || ((pelicula === 'Jurassic world')) || (pelicula === 'jurassic world')) {
-        entradas = parseInt(prompt('¿Cuántas entradas desea sacar?'));
-        ocupadas2 = ocupadas2 + entradas;
-        if (ocupadas2 <= sala2) {
-            alert('Su costo es de : ' + entradas * precio + '$');
-            console.info('La sala 2 tiene',ocupadas2,'asientos ocupados');
-        } else {
-            ocupadas2 = ocupadas2 - entradas;
-            alert('Lo sentimos, no hay espacio suficiente, quedan ' + (sala2 - ocupadas2) + ' lugares');
-            console.info('La sala 2 tiene',ocupadas2,'asientos ocupados');
-        }
+        ocupadas2 = sacarEntradas(ocupadas2, sala2, 2);
 
     } else if ((pelicula === 'Dr. Strange') || ((pelicula === 'Dr. strange')) || (pelicula === 'dr. strange')) {
-        entradas = parseInt(prompt('¿Cuántas entradas desea sacar?'));
-        ocupadas3 = ocupadas3 + entradas;
-        if (ocupadas3 <= sala3) {
-            alert('Su costo es de : ' + entradas * precio + '$');
-            console.info('La sala 3 tiene',ocupadas3,'asientos ocupados');
-        } else {
-            ocupadas3 = ocupadas3 - entradas;
-            alert('Lo sentimos, no hay espacio suficiente, quedan '+ (sala3 - ocupadas3) +' lugares');
-            console.info('La sala 3 tiene',ocupadas3,'asientos ocupados');
-        }
+        ocupadas3 = sacarEntradas(ocupadas3, sala3, 3);
 
     } else {
         alert('La película solicitada no existe, intente nuevamente');
