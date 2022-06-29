@@ -5,9 +5,11 @@ const precio = 500;
 
 //Funciones constructoras
 class sala {
-    constructor(pelicula,capacidad) {
+    constructor(numeroDeSala,pelicula,capacidad) {
+        this.numeroDeSala = parseInt(numeroDeSala);
         this.pelicula = pelicula.toUpperCase();
         this.capacidad = parseInt(capacidad);
+        this.ocupadas = 0;
         this.horarios = {
             horario1: '16:15 hs',
             horario2: '20:15 hs',
@@ -16,110 +18,69 @@ class sala {
     }
 };
 
+class venta {
+    constructor(id, nombreDelProducto, precio, disponibilidad) {
+        this.id = id;
+        this.nombreDelProducto = nombreDelProducto.toUpperCase();
+        this.precio = precio;
+        this.disponibilidad = disponibilidad
+    }
+}
+
 //Salas
-const sala1 = new sala('Sonic 2', 30);
-const sala2 = new sala('Jurassic World', 40);
-const sala3 = new sala('Dr. Strange', 50);
+const sala1 = new sala(1,'Sonic 2', 30);
+const sala2 = new sala(2,'Jurassic World', 40);
+const sala3 = new sala(3,'Dr. Strange', 50);
 
 //comida y bebida
-const cocaCola = {
-    id: 1,
-    nombre: 'Coca Cola',
-    precio: 150
-}
+const cocaCola = new venta(1, 'Coca cola', 150, true);
+const sprite = new venta(2, 'Sprite', 150, true);
+const fanta = new venta(3, 'Fanta', 150, true);
+const pochoclos__s = new venta(4, 'Pochoclos tamaño small', 90, true);
+const pochoclos__m = new venta(5, 'Pochoclos tamaño medium', 150, true);
+const pochoclos__l = new venta(6, 'Pochoclos tamaño large', 220, true);
+const nachos = new venta(7, 'Nachos', 200, true);
 
-const sprite = {
-    id: 2,
-    nombre: 'Sprite',
-    precio: 150
-}
-
-const fanta = {
-    id: 3,
-    nombre: 'Fanta',
-    precio: 150
-}
-
-const pochoclos = {
-    id: 4,
-    nombre: 'Pochoclos',
-    tamano: {
-        s: 90,
-        m: 150,
-        l: 220
-    }
-};
-
-const nachos = {
-    id: 5,
-    nombre: 'Nachos',
-    precio: 100,
-}
 
 //merchandising
-const remeraJurassic = {
-    s: {
-        id: 6,
-        disponibilidad: true
-    },
-    m: {
-        id: 7,
-        disponibilidad: true
-    },
-    l: {
-        id: 8,
-        disponibilidad: true
-    },
-    xl: {
-        id: 9,
-        disponibilidad: true
-    },
-    precio: 2500
-}
+const remeraJurassic = [
+    s = new venta (8, 'Remera Jurassic Park tamaño s', 2500, true),
+    m = new venta (9, 'Remera Jurassic Park tamaño m', 2500, true),
+    l = new venta (10, 'Remera Jurassic Park tamaño l', 2500, true),
+    xl = new venta (11, 'Remera Jurassic Park tamaño xl', 2500, true),
+];
 
-const remeraMarvel = {
-    s: {
-        id: 10,
-        disponibilidad: true
-    },
-    m: {
-        id: 11,
-        disponibilidad: true
-    },
-    l: {
-        id: 12,
-        disponibilidad: true
-    },
-    xl: {
-        id: 13,
-        disponibilidad: true
-    },
-    precio: 2500
-}
+const remeraMarvel = [
+    s = new venta (12, 'Remera Vengadores tamaño s', 2500, true),
+    m = new venta (13, 'Remera Vengadores tamaño m', 2500, true),
+    l = new venta (14, 'Remera Vengadores tamaño l', 2500, true),
+    xl = new venta (15, 'Remera Vengadores tamaño xl', 2500, true),
+];
 
-const vasos = {
-    vaso: ['Jurassic World', 'Star Wars', 'Sonic 2'],
-    precio: 1000
-}
+const vasos = [
+    vasoJurasic = new venta (16, 'Vaso Jurassic World', 1000, true),
+    vasoStarWars = new venta (17, 'Vaso Star Wars', 1000, true),
+    vasoSonic = new venta (18, 'Vaso Sonic 2', 1000, true)
+];
+
 
 //Array del merchandising
-merchandising = [remeraJurassic, remeraMarvel, vasos]
+const merchandising = remeraJurassic.concat(remeraMarvel).concat(vasos);
 
 
 //Array de salas
 const salas = [sala1, sala2, sala3];
 
 //Array de comida y bebida
-const comidaBebida = [gaseosas, pochoclos, nachos];
+const comidaBebida = [cocaCola, sprite, fanta, pochoclos__s,pochoclos__m,pochoclos__l, nachos];
 
 
 
-//Ocupación de las salas y variables
-let ocupadas1 = 0;
-let ocupadas2 = 0;
-let ocupadas3 = 0;
-let pelicula;
+//Variables
+let peliculaElegida;
 let entradas;
+let carritoDeCompras = [];
+let carrito;
 
 
 
@@ -139,26 +100,69 @@ const sacarEntradas = (ocupadas, sala, numeroDeSala) => {
     return ocupadas;
 }
 
+const agregarAlCarrito = (producto, array) => {
+    producto = array.find( el => el.nombreDelProducto === producto);
+    if (producto !== undefined) {
+        carritoDeCompras.push( producto );
+    } else {
+        alert('El producto solicitado no existe');
+    }
+}
+
+const precioTotal = (carritoDeCompras) => {
+    let accum = 0;
+    for ( elemento of carritoDeCompras) {
+        accum += elemento.precio 
+    }
+    return accum
+}
+
+
+
 //Programa
-console.log(`Las peliculas disponibles son: ${salas[0].pelicula}, ${salas[1].pelicula} y ${salas[2].pelicula}`)
+const todasLasPeliculas = salas.map(el => el.pelicula);
+console.log(`Las peliculas disponibles son: ${todasLasPeliculas}`);
+const todasLasComidasYBebidas = comidaBebida.map( el => el.nombreDelProducto);
+const allMerchandising = merchandising.map( el => el.nombreDelProducto);
+
+
 do {
-    //Input del usuario
-    pelicula = prompt(`¿Que película desea ver? \n ${salas[0].pelicula} \n ${salas[1].pelicula} \n ${salas[2].pelicula} \n "end" para salir`).toUpperCase();
-    if (pelicula === 'END') {
+
+    peliculaElegida = prompt(`¿Que película desea ver? \n ${todasLasPeliculas.join('\n')} \n "end" para salir`).toUpperCase();
+
+    if (peliculaElegida === 'END') {
         break;
     }
 
-    if (pelicula === salas[0].pelicula) {
-        ocupadas1 = sacarEntradas(ocupadas1, salas[0].capacidad, 1);
+    peliculaElegida = salas.find( el => el.pelicula === peliculaElegida);
 
-    } else if (pelicula === salas[1].pelicula) {
-        ocupadas2 = sacarEntradas(ocupadas2, salas[1].capacidad, 2);
+    if ( peliculaElegida !== undefined ) {
+        peliculaElegida.ocupadas = sacarEntradas( peliculaElegida.ocupadas , peliculaElegida.capacidad, peliculaElegida.numeroDeSala);
 
-    } else if (pelicula === salas[2].pelicula) {
-        ocupadas3 = sacarEntradas(ocupadas3, salas[2].capacidad, 3);
+
+        let aux = prompt(`¿Desea agregar comida y/o bebida? \n"si" \nCualquier otro valor para terminar`).toUpperCase();
+        if (aux === 'SI') {
+            while ( aux === 'SI') {
+                carrito = prompt(`¿Qué desea agregar? \n ${todasLasComidasYBebidas.join('\n')} \n Por favor, ingrese de a uno.`).toUpperCase();
+                agregarAlCarrito(carrito, comidaBebida);
+                aux = prompt(`¿Desea agregar algo más? \n "si" \n "no" para terminar`).toUpperCase();
+            }
+        }
+
+        aux = prompt(`¿Desea agregar merchandising? \n "si" \n "no" para terminar`).toUpperCase();
+        if (aux === 'SI') {
+            while ( aux === 'SI') {
+                carrito = prompt(`¿Qué desea agregar? \n${allMerchandising.join('\n')} \nPor favor, ingrese de a uno.`).toUpperCase();
+                agregarAlCarrito(carrito, merchandising);
+                aux = prompt(`¿Desea agregar algo más? \n "si" \ncualquier otro valor para terminar`).toUpperCase();
+            }
+        }
 
     } else {
         alert('La película solicitada no existe, intente nuevamente');
     }
 
-} while (pelicula !== 'END');
+} while (peliculaElegida !== 'END');
+
+console.log(carritoDeCompras);
+console.log(precioTotal(carritoDeCompras));
