@@ -6,10 +6,11 @@ const precio = 500;
 //Funciones constructoras
 class sala {
     constructor(numeroDeSala, pelicula, imagen, capacidad) {
-        this.numeroDeSala = parseInt(numeroDeSala);
-        this.pelicula = pelicula.toUpperCase();
+        this.id = parseInt(numeroDeSala);
+        this.nombre = pelicula.toUpperCase();
         this.imagen = imagen;
         this.capacidad = parseInt(capacidad);
+        this.precio = 550;
         this.ocupadas = 0;
         this.horarios = {
             horario1: '16:15 hs',
@@ -22,7 +23,7 @@ class sala {
 class venta {
     constructor(id, nombreDelProducto, imagen, precio, disponibilidad) {
         this.id = id;
-        this.nombreDelProducto = nombreDelProducto.toUpperCase();
+        this.nombre = nombreDelProducto.toUpperCase();
         this.imagen = imagen;
         this.precio = precio;
         this.disponibilidad = disponibilidad
@@ -35,35 +36,35 @@ const sala2 = new sala(2, 'Jurassic World', 'https://hips.hearstapps.com/hmg-pro
 const sala3 = new sala(3, 'Dr. Strange', 'https://pics.filmaffinity.com/Doctor_Strange_en_el_multiverso_de_la_locura-750542602-large.jpg', 50);
 
 //comida y bebida
-const cocaCola = new venta(1, 'Coca cola', "https://jumboargentina.vtexassets.com/arquivos/ids/666704/Coca-cola-Sabor-Original-1-5-Lt-2-245092.jpg?v=637674357676600000", 150, true);
-const sprite = new venta(2, 'Sprite', "https://almacenonline.com.ar/wp-content/uploads/2019/07/sprite1.5-1.jpg", 150, true);
-const fanta = new venta(3, 'Fanta', "https://jumboargentina.vtexassets.com/arquivos/ids/666455/Gaseosa-Fanta-Naranja-1-75-Lt-2-766720.jpg?v=637674249973870000", 150, true);
-const pochoclos__s = new venta(4, 'Pochoclos tamaño small', "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvQ9XMbbosy0d6iutXg_aNKEH8pDaQ-AoPng&usqp=CAU", 90, true);
-const pochoclos__m = new venta(5, 'Pochoclos tamaño medium', "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvQ9XMbbosy0d6iutXg_aNKEH8pDaQ-AoPng&usqp=CAU,150", true);
-const pochoclos__l = new venta(6, 'Pochoclos tamaño large', "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvQ9XMbbosy0d6iutXg_aNKEH8pDaQ-AoPng&usqp=CAU", 220, true);
-const nachos = new venta(7, 'Nachos', "https://static.wixstatic.com/media/93657b_d1cb08162b3a4eec9d3db600dcad1de1~mv2.png/v1/fill/w_498,h_332,al_c,usm_0.66_1.00_0.01/93657b_d1cb08162b3a4eec9d3db600dcad1de1~mv2.png", 200, true);
+const cocaCola = new venta(10, 'Coca cola', "https://jumboargentina.vtexassets.com/arquivos/ids/666704/Coca-cola-Sabor-Original-1-5-Lt-2-245092.jpg?v=637674357676600000", 150, true);
+const sprite = new venta(20, 'Sprite', "https://almacenonline.com.ar/wp-content/uploads/2019/07/sprite1.5-1.jpg", 150, true);
+const fanta = new venta(30, 'Fanta', "https://jumboargentina.vtexassets.com/arquivos/ids/666455/Gaseosa-Fanta-Naranja-1-75-Lt-2-766720.jpg?v=637674249973870000", 150, true);
+const pochoclos__s = new venta(40, 'Pochoclos tamaño small', "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvQ9XMbbosy0d6iutXg_aNKEH8pDaQ-AoPng&usqp=CAU", 90, true);
+const pochoclos__m = new venta(50, 'Pochoclos tamaño medium', "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvQ9XMbbosy0d6iutXg_aNKEH8pDaQ-AoPng&usqp=CAU,150", true);
+const pochoclos__l = new venta(60, 'Pochoclos tamaño large', "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvQ9XMbbosy0d6iutXg_aNKEH8pDaQ-AoPng&usqp=CAU", 220, true);
+const nachos = new venta(70, 'Nachos', "https://static.wixstatic.com/media/93657b_d1cb08162b3a4eec9d3db600dcad1de1~mv2.png/v1/fill/w_498,h_332,al_c,usm_0.66_1.00_0.01/93657b_d1cb08162b3a4eec9d3db600dcad1de1~mv2.png", 200, true);
 
 
 //merchandising
 const remeraJurassic = [
-    s = new venta(8, 'Remera Jurassic Park tamaño s', "https://d3ugyf2ht6aenh.cloudfront.net/stores/402/355/products/jurassic-park31-01a9a5418d4043500516231028488882-1024-1024.jpg", 2500, true),
-    m = new venta(9, 'Remera Jurassic Park tamaño m', "https://d3ugyf2ht6aenh.cloudfront.net/stores/402/355/products/jurassic-park31-01a9a5418d4043500516231028488882-1024-1024.jpg", 2500, true),
-    l = new venta(10, 'Remera Jurassic Park tamaño l', "https://d3ugyf2ht6aenh.cloudfront.net/stores/402/355/products/jurassic-park31-01a9a5418d4043500516231028488882-1024-1024.jpg", 2500, true),
-    xl = new venta(11, 'Remera Jurassic Park tamaño xl', "https://d3ugyf2ht6aenh.cloudfront.net/stores/402/355/products/jurassic-park31-01a9a5418d4043500516231028488882-1024-1024.jpg", 2500, true),
+    s = new venta(100, 'Remera Jurassic Park tamaño s', "https://d3ugyf2ht6aenh.cloudfront.net/stores/402/355/products/jurassic-park31-01a9a5418d4043500516231028488882-1024-1024.jpg", 2500, true),
+    m = new venta(101, 'Remera Jurassic Park tamaño m', "https://d3ugyf2ht6aenh.cloudfront.net/stores/402/355/products/jurassic-park31-01a9a5418d4043500516231028488882-1024-1024.jpg", 2500, true),
+    l = new venta(102, 'Remera Jurassic Park tamaño l', "https://d3ugyf2ht6aenh.cloudfront.net/stores/402/355/products/jurassic-park31-01a9a5418d4043500516231028488882-1024-1024.jpg", 2500, true),
+    xl = new venta(103, 'Remera Jurassic Park tamaño xl', "https://d3ugyf2ht6aenh.cloudfront.net/stores/402/355/products/jurassic-park31-01a9a5418d4043500516231028488882-1024-1024.jpg", 2500, true),
 ];
 const remeraJurassic2 = new venta(8, 'Remera Jurassic Park tamaño s', 2500, true)
 
 const remeraMarvel = [
-    s = new venta(12, 'Remera Vengadores tamaño s', "https://d3ugyf2ht6aenh.cloudfront.net/stores/122/451/products/av-31-08be92b6a4e4c709d315604278192795-1024-1024.jpg", 2500, true),
-    m = new venta(13, 'Remera Vengadores tamaño m', "https://d3ugyf2ht6aenh.cloudfront.net/stores/122/451/products/av-31-08be92b6a4e4c709d315604278192795-1024-1024.jpg", 2500, true),
-    l = new venta(14, 'Remera Vengadores tamaño l', "https://d3ugyf2ht6aenh.cloudfront.net/stores/122/451/products/av-31-08be92b6a4e4c709d315604278192795-1024-1024.jpg", 2500, true),
-    xl = new venta(15, 'Remera Vengadores tamaño xl', "https://d3ugyf2ht6aenh.cloudfront.net/stores/122/451/products/av-31-08be92b6a4e4c709d315604278192795-1024-1024.jpg", 2500, true),
+    s = new venta(200, 'Remera Vengadores tamaño s', "https://d3ugyf2ht6aenh.cloudfront.net/stores/122/451/products/av-31-08be92b6a4e4c709d315604278192795-1024-1024.jpg", 2500, true),
+    m = new venta(201, 'Remera Vengadores tamaño m', "https://d3ugyf2ht6aenh.cloudfront.net/stores/122/451/products/av-31-08be92b6a4e4c709d315604278192795-1024-1024.jpg", 2500, true),
+    l = new venta(202, 'Remera Vengadores tamaño l', "https://d3ugyf2ht6aenh.cloudfront.net/stores/122/451/products/av-31-08be92b6a4e4c709d315604278192795-1024-1024.jpg", 2500, true),
+    xl = new venta(203, 'Remera Vengadores tamaño xl', "https://d3ugyf2ht6aenh.cloudfront.net/stores/122/451/products/av-31-08be92b6a4e4c709d315604278192795-1024-1024.jpg", 2500, true),
 ];
 
 const vasos = [
-    vasoJurasic = new venta(16, 'Vaso Jurassic World', "https://d22fxaf9t8d39k.cloudfront.net/dbd8ea4d02da85afc8d7bda4d920e53632252f70273bf0fe21ac3d4f236ddc6228549.jpeg", 1000, true),
-    vasoStarWars = new venta(17, 'Vaso Star Wars', "https://www.morph.com.ar/pub/media/catalog/product/cache/c249fbb42cf583b1a8cf6f6bd1b7b4b4/3/7/370968_a_vasostarwarscafectapa.jpg", 1000, true),
-    vasoSonic = new venta(18, 'Vaso Sonic 2', "https://pbs.twimg.com/media/FM8syScXwA02Bda.jpg", 1000, true)
+    vasoJurasic = new venta(300, 'Vaso Jurassic World', "https://d22fxaf9t8d39k.cloudfront.net/dbd8ea4d02da85afc8d7bda4d920e53632252f70273bf0fe21ac3d4f236ddc6228549.jpeg", 1000, true),
+    vasoStarWars = new venta(301, 'Vaso Star Wars', "https://www.morph.com.ar/pub/media/catalog/product/cache/c249fbb42cf583b1a8cf6f6bd1b7b4b4/3/7/370968_a_vasostarwarscafectapa.jpg", 1000, true),
+    vasoSonic = new venta(302, 'Vaso Sonic 2', "https://pbs.twimg.com/media/FM8syScXwA02Bda.jpg", 1000, true)
 ];
 
 
@@ -105,8 +106,35 @@ const sacarEntradas = (ocupadas, sala, numeroDeSala) => {
     return ocupadas;
 }
 
+const renderizarCards = (array, target) => {
+    let acumulador = ""
+    array.forEach(el => {
+    acumulador += `
+    <div class="card" style="width: 18rem;">
+        <img src="${el.imagen}" class="card-img-top" alt="${el.nombre}">
+        <div class="card-body">
+        `
+        if ( array[0].id < 10 ) {
+            acumulador += `
+            <h5 class="card-title">Sala ${el.id}: ${el.nombre}</h5>
+            <p class="card-text">Espacio en sala ${el.id}: ${el.capacidad} lugares</p>`
+            
+        } else {
+            acumulador += `
+            <h5 class="card-title">${el.nombre}</h5>
+            <p class="card-text">Precio: ${el.precio}</p>`
+
+        }
+        acumulador +=`
+        <a ref="${el.id}" class="btn btn-primary agregarAlCarrito">Agregar al carrito</a>
+        </div>
+    </div>`
+    })
+    target.innerHTML = acumulador;
+}
+
 const agregarAlCarrito = (producto, array) => {
-    producto = array.find(el => el.nombreDelProducto === producto);
+    producto = array.find(el => el.nombre === producto);
     if (producto !== undefined) {
         carritoDeCompras.push(producto);
     } else {
@@ -122,12 +150,14 @@ const precioTotal = (carritoDeCompras) => {
     return accum
 }
 
+const buscador = (array, texto) => {
+    return array.filter( elemento => elemento.nombre.toUpperCase().includes(texto.toUpperCase()))
+}
+
 
 //Programa
-const todasLasPeliculas = salas.map(el => el.pelicula);
+const todasLasPeliculas = salas.map(el => el.nombre);
 console.log(`Las peliculas disponibles son: ${todasLasPeliculas}`);
-const todasLasComidasYBebidas = comidaBebida.map(el => el.nombreDelProducto);
-const allMerchandising = merchandising.map(el => el.nombreDelProducto);
 
 
 
@@ -135,44 +165,16 @@ const allMerchandising = merchandising.map(el => el.nombreDelProducto);
 let seccionPeliculas = document.getElementById("peliculas")
 let peliculasCards = document.createElement("div");
 
-let acumuladorPeliculas = ``
-
-salas.forEach(el => {
-    acumuladorPeliculas += `
-    <div class="card" style="width: 18rem;">
-        <img src="${el.imagen}" class="card-img-top" alt="${el.pelicula}">
-        <div class="card-body">
-            <h5 class="card-title">Sala ${el.numeroDeSala}: ${el.pelicula}</h5>
-            <p class="card-text">Espacio en sala ${el.numeroDeSala}: ${el.capacidad} lugares</p>
-            <a ref="${el.id}" class="btn btn-primary agregarAlCarrito">Agregar al carrito</a>
-        </div>
-    </div>`
-});
-
-peliculasCards.innerHTML = acumuladorPeliculas;
-seccionPeliculas.appendChild(peliculasCards)
-peliculasCards.className = ("d-flex flex-wrap justify-content-evenly")
+renderizarCards(salas, peliculasCards);
+seccionPeliculas.appendChild(peliculasCards);
+peliculasCards.className = ("d-flex flex-wrap justify-content-evenly");
 
 
 //Dom para Comida y Bebida
 let seccionComidaBebida = document.getElementById("comidaBebida")
 let comidaBebidaCards = document.createElement("div");
 
-let acumuladorComidaBebida = ``
-
-comidaBebida.forEach(el => {
-    acumuladorComidaBebida += `
-    <div class="card" style = "width: 18rem;" >
-        <img src="${el.imagen}" class="card-img-top" alt="${el.nombreDelProducto}">
-            <div class="card-body">
-                <h5 class="card-title">${el.nombreDelProducto}</h5>
-                <p class="card-text">Precio: ${el.precio}</p>
-                <a ref="${el.id}" class="btn btn-primary agregarAlCarrito">Agregar al carrito</a>
-            </div>
-        </div>`
-});
-
-comidaBebidaCards.innerHTML = acumuladorComidaBebida;
+renderizarCards(comidaBebida, comidaBebidaCards);
 seccionComidaBebida.appendChild(comidaBebidaCards);
 comidaBebidaCards.className = ("d-flex flex-wrap justify-content-evenly")
 
@@ -180,21 +182,7 @@ comidaBebidaCards.className = ("d-flex flex-wrap justify-content-evenly")
 let seccionMerchandising = document.getElementById("merchandising")
 let merchandisingCards = document.createElement("div");
 
-let acumuladorMerchandising = ``
-
-merchandising.forEach(el => {
-    acumuladorMerchandising += `
-            <div class="card" style = "width: 18rem;" >
-                <img src="${el.imagen}" class="card-img-top" alt="${el.nombreDelProducto}">
-                    <div class="card-body">
-                        <h5 class="card-title">${el.nombreDelProducto}</h5>
-                        <p class="card-text">Precio: ${el.precio}</p>
-                        <a ref="${el.id}" class="btn btn-primary agregarAlCarrito">Agregar al carrito</a>
-                    </div>
-                </div>`
-});
-
-merchandisingCards.innerHTML = acumuladorMerchandising;
+renderizarCards(merchandising, merchandisingCards);
 seccionMerchandising.appendChild(merchandisingCards);
 merchandisingCards.className = ("d-flex flex-wrap justify-content-evenly")
 
@@ -212,31 +200,40 @@ botonAgregarAlCarrito.forEach(el => el.onclick = (event) => {
     } else {
         carritoDeCompras.push({
             id: elemento.id,
-            nombre: elemento.nombreDelProducto,
+            nombre: elemento.nombre,
             cantidad: 1,
             precio: elemento.precio
         });
     };
     console.log(carritoDeCompras)
+
 })
 
 const abrirModalIconoCarrito = document.getElementById("carritoModal");
 let seccionCarrito = document.getElementById("listaDeCompras")
 
 abrirModalIconoCarrito.onclick = (event) => {
-    let acumulador = ""
-
+    let acumulador = "";
+    let precioTotal = 0;
     carritoDeCompras.forEach(el => {
         acumulador += `
-            <div class="card" style = "width: 18rem;" >
             <div class="card-body">
-                <h5 class="card-title">${el.nombre}</h5>
-                <p class="card-text">Cantidad: ${el.cantidad}</p>
-                <p class="card-text">Precio: ${el.precio}</p>
-                </div>
+                <p class="card-text">${el.cantidad} X ${el.nombre} = $${el.precio * el.cantidad}</p>
             </div>
         `
+        precioTotal += el.precio * el.cantidad
     })
+    acumulador += `Precio Total: $${precioTotal}`
     
     seccionCarrito.innerHTML = acumulador;
+}
+
+
+
+const searchInput = document.getElementById("searchInput");
+let seccionBuscador = document.getElementById("seccionBuscador")
+seccionBuscador.className = ("d-flex flex-wrap justify-content-evenly")
+
+searchInput.oninput = () => {
+    (searchInput.value != "") ? renderizarCards(buscador(arrayCompleto, searchInput.value), seccionBuscador) : seccionBuscador.innerHTML = null 
 }

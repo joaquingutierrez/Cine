@@ -41,8 +41,12 @@ h2 {
     margin: 50px 20px
 }
 
+#carritoModal{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin: 20px;
+}
 #carrito img{
     height: 100px;
-    float: right;
-    margin: 20px;
 }
