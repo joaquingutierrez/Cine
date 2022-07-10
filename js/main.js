@@ -85,7 +85,7 @@ const arrayCompleto = merchandising.concat(salas.concat(comidaBebida));
 //Variables
 let peliculaElegida;
 let entradas;
-let carritoDeCompras = [];
+let carritoDeCompras = JSON.parse(localStorage.getItem('carrito')) || [];
 let carrito;
 
 
@@ -109,23 +109,23 @@ const sacarEntradas = (ocupadas, sala, numeroDeSala) => {
 const renderizarCards = (array, target) => {
     let acumulador = ""
     array.forEach(el => {
-    acumulador += `
+        acumulador += `
     <div class="card" style="width: 18rem;">
         <img src="${el.imagen}" class="card-img-top" alt="${el.nombre}">
         <div class="card-body">
         `
-        if ( array[0].id < 10 ) {
+        if (array[0].id < 10) {
             acumulador += `
             <h5 class="card-title">Sala ${el.id}: ${el.nombre}</h5>
             <p class="card-text">Espacio en sala ${el.id}: ${el.capacidad} lugares</p>`
-            
+
         } else {
             acumulador += `
             <h5 class="card-title">${el.nombre}</h5>
             <p class="card-text">Precio: ${el.precio}</p>`
 
         }
-        acumulador +=`
+        acumulador += `
         <a ref="${el.id}" class="btn btn-primary agregarAlCarrito">Agregar al carrito</a>
         </div>
     </div>`
@@ -150,8 +150,45 @@ const precioTotal = (carritoDeCompras) => {
     return accum
 }
 
+const renderTablaCarrito = (array, target) => {
+    ;
+    let precioTotal = 0;
+    let acumulador = `
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">eliminar</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Elemento</th>
+                    <th scope="col">Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+    `
+    array.forEach((el, index) => {
+        acumulador += `
+                    <tr>
+                        <th scope="row">${index + 1}</th>
+                        <td><span class="eliminar" ref="${el.id}"> X </span></td>
+                        <td>${el.cantidad}</td>
+                        <td>${el.nombre}</td>
+                        <td>$${el.precio * el.cantidad}</td>
+                    </tr>
+        `
+        precioTotal += el.precio * el.cantidad
+    })
+    acumulador += `
+            </tbody>
+        </table>
+    `
+    acumulador += `Precio Total: $${precioTotal}`
+    target.innerHTML = acumulador;
+}
+
 const buscador = (array, texto) => {
-    return array.filter( elemento => elemento.nombre.toUpperCase().includes(texto.toUpperCase()))
+    sessionStorage.setItem('buscar', texto)
+    return array.filter(elemento => elemento.nombre.toUpperCase().includes(texto.toUpperCase()))
 }
 
 
@@ -206,34 +243,41 @@ botonAgregarAlCarrito.forEach(el => el.onclick = (event) => {
         });
     };
     console.log(carritoDeCompras)
+    localStorage.setItem('carrito', JSON.stringify(carritoDeCompras))
 
 })
 
 const abrirModalIconoCarrito = document.getElementById("carritoModal");
 let seccionCarrito = document.getElementById("listaDeCompras")
 
+let eliminarElementoDelCarrito;
 abrirModalIconoCarrito.onclick = (event) => {
-    let acumulador = "";
-    let precioTotal = 0;
-    carritoDeCompras.forEach(el => {
-        acumulador += `
-            <div class="card-body">
-                <p class="card-text">${el.cantidad} X ${el.nombre} = $${el.precio * el.cantidad}</p>
-            </div>
-        `
-        precioTotal += el.precio * el.cantidad
-    })
-    acumulador += `Precio Total: $${precioTotal}`
-    
-    seccionCarrito.innerHTML = acumulador;
-}
+    renderTablaCarrito(carritoDeCompras, seccionCarrito);
+    eliminarElementoDelCarrito = document.querySelectorAll('.eliminar');
+    eliminarElementoDelCarrito.forEach(el => el.onclick = (event) => {
+        const id = parseInt(event.target.getAttribute('ref'));
+        const elementoIndex = carritoDeCompras.findIndex(el => el.id === id);
+        carritoDeCompras[elementoIndex].cantidad = carritoDeCompras[elementoIndex].cantidad - 1;
+        if (carritoDeCompras[elementoIndex].cantidad === 0) {
+            carritoDeCompras.splice(elementoIndex, 1);
+        };
+        renderTablaCarrito(carritoDeCompras, seccionCarrito);
+        console.log(carritoDeCompras);
+        localStorage.setItem('carrito', JSON.stringify(carritoDeCompras));
+    });
+};
 
 
 
 const searchInput = document.getElementById("searchInput");
-let seccionBuscador = document.getElementById("seccionBuscador")
-seccionBuscador.className = ("d-flex flex-wrap justify-content-evenly")
+let seccionBuscador = document.getElementById("seccionBuscador");
+seccionBuscador.className = ("d-flex flex-wrap justify-content-evenly");
 
-searchInput.oninput = () => {
-    (searchInput.value != "") ? renderizarCards(buscador(arrayCompleto, searchInput.value), seccionBuscador) : seccionBuscador.innerHTML = null 
+
+if (sessionStorage.getItem('buscar') && sessionStorage.getItem('buscar').length > 1) {
+    searchInput.value = sessionStorage.getItem('buscar');
+    renderizarCards(buscador(arrayCompleto, searchInput.value), seccionBuscador);
 }
+searchInput.oninput = () => {
+    (searchInput.value != "") ? renderizarCards(buscador(arrayCompleto, searchInput.value), seccionBuscador) : seccionBuscador.innerHTML = null
+};

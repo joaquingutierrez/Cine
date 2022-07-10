@@ -50,3 +50,9 @@ h2 {
 #carrito img{
     height: 100px;
 }
+
+.eliminar {
+    cursor: pointer;
+    height: fit-content;
+    width: fit-content;
+}
