@@ -51,8 +51,9 @@ h2 {
     height: 100px;
 }
 
+.containerEliminar {
+    text-align: center;
+}
 .eliminar {
     cursor: pointer;
-    height: fit-content;
-    width: fit-content;
 }
