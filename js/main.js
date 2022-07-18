@@ -1,8 +1,5 @@
 //Sacar tickets en una boleteria para ver una pelicula y control para verificar si una sala esta llena o no
 
-//Precio de la entrada
-const precio = 500;
-
 //Funciones constructoras
 class sala {
     constructor(numeroDeSala, pelicula, imagen, capacidad) {
@@ -43,6 +40,16 @@ const pochoclos__s = new venta(40, 'Pochoclos tamaño small', "https://encrypted
 const pochoclos__m = new venta(50, 'Pochoclos tamaño medium', "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvQ9XMbbosy0d6iutXg_aNKEH8pDaQ-AoPng&usqp=CAU", 150, true);
 const pochoclos__l = new venta(60, 'Pochoclos tamaño large', "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvQ9XMbbosy0d6iutXg_aNKEH8pDaQ-AoPng&usqp=CAU", 220, true);
 const nachos = new venta(70, 'Nachos', "https://static.wixstatic.com/media/93657b_d1cb08162b3a4eec9d3db600dcad1de1~mv2.png/v1/fill/w_498,h_332,al_c,usm_0.66_1.00_0.01/93657b_d1cb08162b3a4eec9d3db600dcad1de1~mv2.png", 200, true);
+const pochoclos = {
+    imagen: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRvQ9XMbbosy0d6iutXg_aNKEH8pDaQ-AoPng&usqp=CAU",
+    nombre: "Pochoclos",
+    size: [
+        { id: 41, nombre: 'Small', precio: 90, disponibilidad: true },
+        { id: 42, nombre: 'Medium', precio: 150, disponibilidad: true },
+        { id: 43, nombre: 'Large', precio: 220, disponibilidad: true }
+    ]
+}
+
 
 
 //merchandising
@@ -76,10 +83,11 @@ const merchandising = remeraJurassic.concat(remeraMarvel).concat(vasos);
 const salas = [sala1, sala2, sala3];
 
 //Array de comida y bebida
-const comidaBebida = [cocaCola, sprite, fanta, pochoclos__s, pochoclos__m, pochoclos__l, nachos];
+const comidaBebida = [cocaCola, sprite, fanta, pochoclos__s, pochoclos__m, pochoclos__l, nachos, pochoclos];
 
 //array con todo
 const arrayCompleto = merchandising.concat(salas.concat(comidaBebida));
+let arrayParcial = arrayCompleto.filter(el => el.size)
 
 
 //Variables
@@ -102,6 +110,7 @@ const todasLasPeliculas = salas.map(el => el.nombre);
 
 
 
+
 //Funciones
 const renderizarCards = (array, target) => {
     let acumulador = ""
@@ -116,16 +125,31 @@ const renderizarCards = (array, target) => {
             <h5 class="card-title">Sala ${el.id}: ${el.nombre}</h5>
             <p class="card-text">Espacio en sala ${el.id}: ${el.capacidad} lugares</p>`
 
+        } else if (el.size) {
+            acumulador += `
+                    <h5 class="card-title">${el.nombre}</h5>
+                    <select class="form-select" aria-label="Default select example">
+                        <option value="">Elija una opcion...</option>
+                `
+            el.size.forEach(el => {
+                acumulador += `
+                        <option value="${el.id}">${el.nombre}</option>
+                    `
+            })
+            acumulador += `
+                    </select>
+                    <p class="card-text" id="precio"></p>
+                `
         } else {
             acumulador += `
-            <h5 class="card-title">${el.nombre}</h5>
-            <p class="card-text">Precio: ${el.precio}</p>`
-
+                <p class="card-text">Precio: ${el.precio}</p>
+                `
         }
         acumulador += `
         <a ref="${el.id}" class="btn btn-primary agregarAlCarrito">Agregar al carrito</a>
         </div>
-    </div>`
+    </div>
+        `
     })
     target.innerHTML = acumulador;
 }
@@ -183,7 +207,6 @@ const eliminar = (event) => {
         carritoDeCompras.splice(elementoIndex, 1);
     };
     renderTablaCarrito(carritoDeCompras, seccionCarrito);
-    console.log(carritoDeCompras);
     localStorage.setItem('carrito', JSON.stringify(carritoDeCompras));
     eliminarElementoDelCarrito = document.querySelectorAll('.eliminar');
     eliminarElementoDelCarrito.forEach(el => el.addEventListener("click", eliminar));
@@ -191,8 +214,6 @@ const eliminar = (event) => {
 
 
 //Programa
-console.log(`Las peliculas disponibles son: ${todasLasPeliculas}`);
-
 
 
 //DOM para peliculas
@@ -219,7 +240,7 @@ eliminarElementoDelCarrito.forEach(el => el.addEventListener("click", eliminar))
 
 botonAgregarAlCarrito.forEach(el => el.onclick = (event) => {
     const id = parseInt(event.target.getAttribute('ref'));
-    const elemento = arrayCompleto.find(el => el.id === id);
+    const elemento = arrayCompleto.find(el => el.id === id) || arrayParcial.find(el => el.size.id === id);
     if (carritoDeCompras.some(el => el.id === id)) {
         const index = carritoDeCompras.findIndex(el => el.id === id);
         carritoDeCompras[index].cantidad = carritoDeCompras[index].cantidad + 1;
@@ -231,14 +252,13 @@ botonAgregarAlCarrito.forEach(el => el.onclick = (event) => {
             precio: elemento.precio
         });
     };
-    console.log(carritoDeCompras)
     renderTablaCarrito(carritoDeCompras, seccionCarrito)
     eliminarElementoDelCarrito = document.querySelectorAll('.eliminar');
     localStorage.setItem('carrito', JSON.stringify(carritoDeCompras))
 
 })
 
-renderTablaCarrito(carritoDeCompras,seccionCarrito)
+renderTablaCarrito(carritoDeCompras, seccionCarrito)
 
 seccionBuscador.className = ("d-flex flex-wrap justify-content-evenly");
 if (sessionStorage.getItem('buscar') && sessionStorage.getItem('buscar').length > 1) {
@@ -248,3 +268,22 @@ if (sessionStorage.getItem('buscar') && sessionStorage.getItem('buscar').length 
 searchInput.oninput = () => {
     (searchInput.value != "") ? renderizarCards(buscador(arrayCompleto, searchInput.value), seccionBuscador) : seccionBuscador.innerHTML = null
 };
+
+
+addEventListener('change', (event) => {
+    let precioHtml = document.getElementById('precio')
+    let id = parseInt(event.target.value)
+    let item
+    let precio
+    console.log(arrayParcial)
+    arrayParcial.forEach(el => {
+        el.size.forEach(elemento => {
+            if (elemento.id === id) {
+                item = elemento
+            }
+        })
+    })
+    console.log(item)
+    precio = item.precio
+    precioHtml.innerText = 'Precio: ' + precio
+})
