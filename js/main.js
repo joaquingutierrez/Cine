@@ -110,7 +110,6 @@ const todasLasPeliculas = salas.map(el => el.nombre);
 
 
 
-
 //Funciones
 const renderizarCards = (array, target) => {
     let acumulador = ""
@@ -252,6 +251,11 @@ botonAgregarAlCarrito.forEach(el => el.onclick = (event) => {
             precio: elemento.precio
         });
     };
+    Swal.fire(
+        'Agregado al carrito',
+        `${elemento.nombre}`,
+        'success'
+    )
     renderTablaCarrito(carritoDeCompras, seccionCarrito)
     eliminarElementoDelCarrito = document.querySelectorAll('.eliminar');
     localStorage.setItem('carrito', JSON.stringify(carritoDeCompras))

@@ -57,3 +57,11 @@ h2 {
 .eliminar {
     cursor: pointer;
 }
+
+.botonPagar {
+    color: inherit;
+    text-decoration: none;
+}
+.botonPagar:hover {
+    color: inherit;
+}
