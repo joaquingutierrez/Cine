@@ -1,7 +1,3 @@
-//Variables
-const facturacion = document.getElementById("facturacion")
-let carritoDeCompras = JSON.parse(localStorage.getItem('carrito')) || [];
-
 //Funciones
 const renderTablaCarrito = (array, target) => {
     ;
@@ -35,7 +31,7 @@ const renderTablaCarrito = (array, target) => {
             </tbody>
         </table>
     `
-    acumulador += `Precio Total: $${precioTotal}`
+    acumulador += `<p>Precio Total: $${precioTotal}</p>`
     target.innerHTML = acumulador;
     eliminarElementoDelCarrito = document.querySelectorAll(".eliminar")
     eliminarElementoDelCarrito.forEach(el => el.addEventListener("click", eliminar));

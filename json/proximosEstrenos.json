@@ -1,0 +1,22 @@
+{
+    "proximosEstrenos": [
+        {
+            "id": 1000,
+            "nombre": "Avatar 2",
+            "imagen": "https://myandroidwalls.com/wp-content/uploads/2022/06/Best-Avatar-2-Wallpapers.jpg",
+            "fecha": "15/12/2022"
+        },
+        {
+            "id": 1002,
+            "nombre": "Dragon Ball Super: Super Hero",
+            "imagen": "https://image.tmdb.org/t/p/w500/ccVOZTu6KcrUxCIK1Sjmwz8yTi2.jpg",
+            "fecha": "27/10/2022"
+        },
+        {
+            "id": 1003,
+            "nombre": "Halloween: La Noche Final",
+            "imagen": "http://www.procinal.com/uploads/PELICULAS/Img_movies/Img_360x500/HALLOWEN%20ENDS1.jpg",
+            "fecha": "13/10/2022"
+        }
+    ]
+}
