@@ -30,9 +30,11 @@ merchandisingCards.className = ("d-flex flex-wrap justify-content-evenly")
 
 
 //eventos 
-let selectHtml = document.querySelectorAll('.form-select')
+let selectHtml = document.querySelectorAll('.selectSize')
 selectHtml.forEach( el => el.addEventListener('change', renderizarPrecioYBoton))
 
+let selectCantidadEntradas = document.querySelectorAll('.selectCantidad')
+selectCantidadEntradas.forEach( el => el.addEventListener('change', sacarEntradas))
 
 let botonAgregarAlCarrito = document.querySelectorAll(".agregarAlCarrito");
 botonAgregarAlCarrito.forEach(el => el.addEventListener('click', funcionAgregarAlCarrito))

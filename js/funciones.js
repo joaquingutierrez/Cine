@@ -4,14 +4,28 @@ const funcionAgregarAlCarrito = (event) => {
     const item = arrayCompleto.find(el => el.id === id) || arrayParcial3.find(el => el.id === id);
     if (carritoDeCompras.some(el => el.id === id)) {
         const index = carritoDeCompras.findIndex(el => el.id === id);
-        carritoDeCompras[index].cantidad = carritoDeCompras[index].cantidad + 1;
+        if ( id >= 10 ) {
+            carritoDeCompras[index].cantidad = carritoDeCompras[index].cantidad + 1;
+        } else {
+            carritoDeCompras[index].cantidad = carritoDeCompras[index].cantidad + item.cantidadEntradas
+        }
     } else {
-        carritoDeCompras.push({
-            id: item.id,
-            nombre: item.nombre,
-            cantidad: 1,
-            precio: item.precio
-        });
+        if ( id > 10 ) {
+            carritoDeCompras.push({
+                id: item.id,
+                nombre: item.nombre,
+                cantidad: 1,
+                precio: item.precio
+            });
+        } else {
+            carritoDeCompras.push({
+                id: item.id,
+                nombre: item.nombre,
+                cantidad: item.cantidadEntradas,
+                precio: item.precio
+            });
+        }
+
     };
     Swal.fire(
         'Agregado al carrito',
@@ -31,16 +45,31 @@ const renderizarCards = (array, target) => {
         <img src="${el.imagen}" class="card-img-top" alt="${el.nombre}">
         <div class="card-body">
         `
-        if (array[0].id < 10) {
+        if (array[0].id < 10) { //cards para peliculas
             acumulador += `
             <h5 class="card-title">Sala ${el.id}: ${el.nombre}</h5>
             <p class="card-text">Espacio en sala ${el.id}: ${el.capacidad} lugares</p>
+            <select class="form-select selectCantidad" ref="precioYBoton_${el.id}" refID="${el.id}" aria-label="Default select example">
+                <option selected value="">Cantidad...</option>
+                <option value="1"">1</option>
+                <option value="2"">2</option>
+                <option value="3"">3</option>
+                <option value="4"">4</option>
+                <option value="5"">5</option>
+                <option value="6"">6</option>
+                <option value="7"">7</option>
+                <option value="8"">8</option>
+                <option value="9"">9</option>
+            </select>
+            <div id="precioYBoton_${el.id}" ref='precioYBoton_${el.id}'></div>
+        </div>
+    </div>
             `
 
         } else if (el.size) {
             acumulador += `
             <h5 class="card-title">${el.nombre}</h5>
-            <select class="form-select" ref='precioYBoton_${el.id}' aria-label="Default select example">
+            <select class="form-select selectSize" ref='precioYBoton_${el.id}' aria-label="Default select example">
                 <option value="">Elija una opcion...</option>
                 `
             el.size.forEach(el => {
@@ -69,16 +98,11 @@ const renderizarCards = (array, target) => {
     </div>
             `
         } if (array[0].id < 10) {
-            acumulador += `
-            <a ref="${el.id}" class="btn btn-primary agregarAlCarrito">Agregar al carrito</a>
-        </div>
-    </div>
 
-            `
         }
 
     })
-    arrayParcial.forEach( (el, index )=> {
+    arrayParcial.forEach((el, index) => {
         precioHtml[index] = document.getElementById(`precioYBoton_${el.id}`)
     })
     target.innerHTML = acumulador;
@@ -146,12 +170,11 @@ const renderizarPrecioYBoton = (event) => {
     const id = parseInt(event.target.value)
     const refSelect = event.target.getAttribute('ref')
     let refPrecio = []
-    precioHtml.forEach( (el, i) => {
+    precioHtml.forEach((el, i) => {
         refPrecio[i] = el.getAttribute('ref')
     })
     const index = refPrecio.findIndex(el => el == refSelect)
     if (id) {
-        console.log('dibujar')
         let item
         let precio
         arrayParcial.forEach(el => {
@@ -167,8 +190,35 @@ const renderizarPrecioYBoton = (event) => {
         <a ref="${id}" class="btn btn-primary agregarAlCarrito">Agregar al carrito</a>
         `
     } else {
-        console.log('nada')
         precioHtml[index].innerHTML = ''
+    }
+    botonAgregarAlCarrito = document.querySelectorAll(".agregarAlCarrito");
+    botonAgregarAlCarrito.forEach(el => el.addEventListener('click', funcionAgregarAlCarrito));
+}
+
+const sacarEntradas = (event) => {
+    const cantidadEntradas = parseInt(event.target.value)
+    const id = parseInt(event.target.getAttribute('refID'))
+    const refSelect = event.target.getAttribute('ref')
+    let refPrecio = []
+    salas.forEach((el, index) => {
+        entradasHtml[index] = document.getElementById(`precioYBoton_${el.id}`)
+    })
+    entradasHtml.forEach((el, i) => {
+        refPrecio[i] = el.getAttribute('ref')
+    })
+    const index = refPrecio.findIndex(el => el == refSelect)
+    if (cantidadEntradas) {
+        let item = salas[id - 1]
+        salas[id - 1].cantidadEntradas = cantidadEntradas
+        salas[id - 1].precioTotalEntradas = item.precio*cantidadEntradas
+        entradasHtml[index].innerHTML = `
+        <p>Precio: ${salas[id - 1].precioTotalEntradas}</p>
+        <a ref="${id}" class="btn btn-primary agregarAlCarrito">Sacar Entradas</a>
+        `
+        
+    } else {
+        entradasHtml[index].innerHTML = ''
     }
     botonAgregarAlCarrito = document.querySelectorAll(".agregarAlCarrito");
     botonAgregarAlCarrito.forEach(el => el.addEventListener('click', funcionAgregarAlCarrito));

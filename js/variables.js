@@ -7,6 +7,8 @@ class sala {
         this.capacidad = parseInt(capacidad);
         this.precio = 550;
         this.ocupadas = 0;
+        this.cantidadEntradas = 0;
+        this.precioTotalEntradas = 0;
         this.horarios = {
             horario1: '16:15 hs',
             horario2: '20:15 hs',
@@ -107,4 +109,5 @@ let merchandisingCards = document.createElement("div");
 const todasLasPeliculas = salas.map(el => el.nombre);
 const facturacion = document.getElementById("facturacion")
 let precioHtml = []
+let entradasHtml = []
 
