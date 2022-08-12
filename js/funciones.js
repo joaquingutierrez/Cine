@@ -23,7 +23,10 @@ const funcionAgregarAlCarrito = (event) => {
                         cantidad: item.cantidadEntradas,
                         precio: item.precio,
                         dia: salas[indexDeSala].funciones[indexFuncion].dia,
-                        hora: salas[indexDeSala].funciones[indexFuncion].horarios[indexHorario]
+                        hora: salas[indexDeSala].funciones[indexFuncion].horarios[indexHorario],
+                        indexDeSala: indexDeSala,
+                        indexFuncion: indexFuncion,
+                        indexHorario: indexHorario
                     });
                 }
             }
@@ -47,7 +50,10 @@ const funcionAgregarAlCarrito = (event) => {
                 cantidad: item.cantidadEntradas,
                 precio: item.precio,
                 dia: salas[indexDeSala].funciones[indexFuncion].dia,
-                hora: salas[indexDeSala].funciones[indexFuncion].horarios[indexHorario]
+                hora: salas[indexDeSala].funciones[indexFuncion].horarios[indexHorario],
+                indexDeSala: indexDeSala,
+                indexFuncion: indexFuncion,
+                indexHorario: indexHorario
             });
         }
 
@@ -152,7 +158,11 @@ const renderTablaCarrito = (array, target) => {
         acumulador += `
                     <tr>
                         <th scope="row">${index + 1}</th>
-                        <td class="containerEliminar"><span class="eliminar" ref="${el.id}"> X </span></td>
+                        <td class="containerEliminar"><span class="eliminar" ref="${el.id}"` 
+                        if (el.id<10) {
+                            acumulador += `ref2="${el.indexDeSala}" ref3="${el.indexFuncion}" ref4="${el.indexHorario}"`
+                        }
+                        acumulador +=  `> X </span></td>
                         <td>${el.cantidad}</td>
                         <td>${ (el.id < 10) ? el.nombre + ' - ' + el.dia + ' - ' + el.hora : el.nombre}</td>
                         <td>$${el.precio * el.cantidad}</td>
@@ -180,6 +190,12 @@ const eliminar = (event) => {
     const id = parseInt(event.target.getAttribute('ref'));
     const elementoIndex = carritoDeCompras.findIndex(el => el.id === id);
     carritoDeCompras[elementoIndex].cantidad = carritoDeCompras[elementoIndex].cantidad - 1;
+    if (id < 10) {
+        const indexDeSala = parseInt(event.target.getAttribute('ref2'))
+        const indexFuncion = parseInt(event.target.getAttribute('ref3'))
+        const indexHorario = parseInt(event.target.getAttribute('ref4'))
+        salas[indexDeSala].funciones[indexFuncion].ocupadas[indexHorario] -= 1
+    }
     if (carritoDeCompras[elementoIndex].cantidad === 0) {
         carritoDeCompras.splice(elementoIndex, 1);
     };
@@ -283,7 +299,6 @@ const sacarEntradas = (event) => {
     const id = indexDeSala + 1
     const cantidadEntradas = parseInt(event.target.value)
     const hayLugar = salas[indexDeSala].capacidad - salas[indexDeSala].funciones[indexFuncion].ocupadas[indexHorario] - cantidadEntradas
-    console.log(hayLugar)
     const renderBoton = document.getElementById(`botonCompra_${indexDeSala}`)
     let acumulador
     const fecha = carritoDeCompras.findIndex(el => el.dia === salas[indexDeSala].funciones[indexFuncion].dia);
@@ -314,3 +329,7 @@ const cantidadDefault = (event) => {
     
 }
 
+const irAPagar = (event) => {
+    localStorage.setItem('posiblesCompras',JSON.stringify(salas))
+
+}

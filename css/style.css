@@ -58,10 +58,10 @@ h2 {
     cursor: pointer;
 }
 
-.botonPagar {
+#botonPagar {
     color: inherit;
     text-decoration: none;
 }
-.botonPagar:hover {
+#botonPagar:hover {
     color: inherit;
 }

@@ -51,16 +51,17 @@ const eliminar = (event) => {
     eliminarElementoDelCarrito.forEach(el => el.addEventListener("click", eliminar));
 }
 
-/* const funcionPagar = (event) => {
-    localStorage.setItem('salas',JSON.stringify(salas))
-} */
+const funcionPagar = (event) => {
+    salas = JSON.parse(localStorage.getItem('posiblesCompras'))
+    localStorage.setItem('salas', JSON.stringify(salas))
+    facturacion.innerHTML = `<h2>Gracias por su compra</h2>`
+}
 //DOM para facturación
 renderTablaCarrito(carritoDeCompras, facturacion)
-/* if (carritoDeCompras.length >= 1) {
+if (carritoDeCompras.length >= 1) {
     facturacion.innerHTML += `
     <a id="pagar">Pagar</a>
     `
     pagar = document.getElementById('pagar')
     pagar.addEventListener('click', funcionPagar)
-    carritoDeCompras = []
-} */
+}

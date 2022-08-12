@@ -38,7 +38,7 @@ class venta {
 }
 
 //Salas
-const salas = [
+let salas = (JSON.parse(localStorage.getItem('posiblesCompras'))) || [
     sala1 = new sala(1, 'Sonic 2', 'https://www.lahiguera.net/cinemania/pelicula/10077/sonic_2_la_pelicula-cartel-10238.jpg', 30),
     sala2 = new sala(2, 'Jurassic World', 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/jurassic-world-dominion-poster-fotogramas-1651162168.jpg', 40),
     sala3 = new sala(3, 'Dr. Strange', 'https://pics.filmaffinity.com/Doctor_Strange_en_el_multiverso_de_la_locura-750542602-large.jpg', 50)
@@ -122,3 +122,4 @@ let precioHtml = []
 let entradasHtml = []
 let selectHorario
 let selectCantidad
+const botonIrAPagar = document.getElementById('botonPagar')

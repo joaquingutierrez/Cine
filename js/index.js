@@ -56,3 +56,4 @@ searchInput.oninput = () => {
     (searchInput.value != "") ? renderizarCards(buscador(arrayCompleto, searchInput.value), seccionBuscador) : seccionBuscador.innerHTML = null
 };
 
+botonIrAPagar.addEventListener('click', irAPagar)
