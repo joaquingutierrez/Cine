@@ -21,7 +21,7 @@ const renderTablaCarrito = (array, target) => {
                         <th scope="row">${index + 1}</th>
                         <td class="containerEliminar"><span class="eliminar" ref="${el.id}"> X </span></td>
                         <td>${el.cantidad}</td>
-                        <td>${el.nombre}</td>
+                        <td>${(el.id < 10) ? el.nombre + ' - ' + el.dia + ' - ' + el.hora : el.nombre}</td>
                         <td>$${el.precio * el.cantidad}</td>
                     </tr>
         `
@@ -51,5 +51,16 @@ const eliminar = (event) => {
     eliminarElementoDelCarrito.forEach(el => el.addEventListener("click", eliminar));
 }
 
+/* const funcionPagar = (event) => {
+    localStorage.setItem('salas',JSON.stringify(salas))
+} */
 //DOM para facturación
 renderTablaCarrito(carritoDeCompras, facturacion)
+/* if (carritoDeCompras.length >= 1) {
+    facturacion.innerHTML += `
+    <a id="pagar">Pagar</a>
+    `
+    pagar = document.getElementById('pagar')
+    pagar.addEventListener('click', funcionPagar)
+    carritoDeCompras = []
+} */

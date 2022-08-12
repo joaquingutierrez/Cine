@@ -6,14 +6,24 @@ class sala {
         this.imagen = imagen;
         this.capacidad = parseInt(capacidad);
         this.precio = 550;
-        this.ocupadas = 0;
         this.cantidadEntradas = 0;
-        this.precioTotalEntradas = 0;
-        this.horarios = {
-            horario1: '16:15 hs',
-            horario2: '20:15 hs',
-            horario3: '23:30 hs'
-        }
+        this.funciones = [
+            {
+                dia: 'Jueves',
+                horarios: ['16:15 hs', '20:15 hs', '23:30 hs'],
+                ocupadas: [0, 0, 0]
+            },
+            {
+                dia: 'Viernes',
+                horarios: ['16:15 hs', '20:15 hs', '23:30 hs'],
+                ocupadas: [0, 0, 0]
+            },
+            {
+                dia: 'Sábado',
+                horarios: ['16:15 hs', '20:15 hs', '23:30 hs'],
+                ocupadas: [0, 0, 0]
+            }
+        ]
     }
 };
 
@@ -110,4 +120,5 @@ const todasLasPeliculas = salas.map(el => el.nombre);
 const facturacion = document.getElementById("facturacion")
 let precioHtml = []
 let entradasHtml = []
-
+let selectHorario
+let selectCantidad

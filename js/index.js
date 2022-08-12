@@ -33,6 +33,9 @@ merchandisingCards.className = ("d-flex flex-wrap justify-content-evenly")
 let selectHtml = document.querySelectorAll('.selectSize')
 selectHtml.forEach( el => el.addEventListener('change', renderizarPrecioYBoton))
 
+let selectDia = document.querySelectorAll('.selectDia')
+selectDia.forEach( el => el.addEventListener('change', horariosEnFuncionDelDiaElegido))
+
 let selectCantidadEntradas = document.querySelectorAll('.selectCantidad')
 selectCantidadEntradas.forEach( el => el.addEventListener('change', sacarEntradas))
 
